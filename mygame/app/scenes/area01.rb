@@ -10,6 +10,7 @@ class Area01Scene < Scene
     @map      = Map.new args
     @sprite.set_colision_map @map
     @sprite.dr_colider_init
+    @sprite.find_submap_points
   end
 
   def reset
@@ -22,7 +23,6 @@ class Area01Scene < Scene
              size_enum: 3)
     @map.tick
     @sprite.tick
-    @sprite.find_submap_points
     x = @sprite.c_sm_min_x
     y = @sprite.c_sm_min_y
     #
@@ -31,7 +31,7 @@ class Area01Scene < Scene
              vertical_alignment_enum: 0, alignment_enum: 0,
              size_enum: 3)
     #
-    @sprite.draw_submap_points
+    @sprite.draw_submap_rec
     @sprite.draw_submap
     # TODO
     args.outputs.labels << args.layout.rect(row: 2, col: 14)

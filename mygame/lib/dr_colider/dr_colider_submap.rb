@@ -4,16 +4,18 @@
 #
 module DrColiderSubmap
 
+  # todo need current and new ?
   def find_submap_points
-    @c_sm_min_x = @x / @tile_w
-    @c_sm_min_y = @y / @tile_h
+    @c_sm_min_x = @c_new_x / @tile_w
+    @c_sm_min_y = @c_new_y / @tile_h
     @c_sm_max_x = @c_sm_min_x + @c_tile_w
     @c_sm_max_y = @c_sm_min_y + @c_tile_h
   end
 
   # TODO: use named_params
+  # TODO: rename draw_submap_rec
   #
-  def draw_submap_points
+  def draw_submap_rec
     draw_rect @c_sm_min_x.floor * @tile_w,
       @c_sm_min_y.floor * @tile_h,
       (@c_tile_w + 1) * @tile_w,

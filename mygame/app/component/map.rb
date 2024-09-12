@@ -65,12 +65,12 @@ class Map
 
   def render_1
     puts "----------- start generate ------------"
-    if map # = args.state.loaded_maps[map_name]
-      target        = args.render_target(:accumulation)
-      attributes    = map.attributes
-      target.width  = attributes.width.to_i * attributes.tilewidth.to_i
-      target.height = attributes.height.to_i * attributes.tileheight.to_i
-      target.clear_before_render = false
+    # = args.state.loaded_maps[map_name]
+    if map
+      target                     = args.render_target(:accumulation)
+      attributes                 = map.attributes
+      target.width               = attributes.width.to_i * attributes.tilewidth.to_i
+      target.height              = attributes.height.to_i * attributes.tileheight.to_i
       target.clear_before_render = false
       target.static_sprites << map.layers.map(&:sprites)
       puts "----------- generate_done ------------"
@@ -85,11 +85,9 @@ class Map
   # render avec le meme décalage et zomme que le sprite
   #
   def render_2
-
     zoom   = 0.25
     zoom   = 0.5
     zoom   = 1
-
     # @offset + = 1
     @offset     = 0 if @offset > 1280
     x_offset    = 0

@@ -25,10 +25,28 @@ module DrColider
     @tile_h   = @current_colider_map.tileheight.to_i
     @c_tile_w = @w / @tile_w # TODO 1 if 0
     @c_tile_h = @h / @tile_h
-    puts "tile_w______________________"
-    puts @tile_w.to_s
-    puts @w
-    puts "______________________"
   end
 
+  def colision_check
+    a = "x #{@x} new_x: #{@c_new_x}"
+    label_data a, 10, 14
+    if no_colision?
+      @x = @c_new_x
+      @y = @c_new_y
+      a = "x #{@x} new_x: #{@c_new_x} col no"
+      label_data a, 9, 14
+    else
+      a = "x #{@x} new_x: #{@c_new_x} col yes"
+      label_data a, 9, 14
+      @c_new_x = (@x + 0)
+      @c_new_y = (@y + 0)
+    end
+  end
+
+  def no_colision?
+    a = submap_tiles.each {|row| row.map! &:id}.flatten
+    label_data a, 11, 14
+    true
+    a.all? 0
+  end
 end
