@@ -1,32 +1,15 @@
-# Pong a day
+# dr_colider example
 
-1000 shade of pong
+```
+./dragonruby mygame
+```
 
-# What
+## run tests
 
-This repo is a rewrite of dragonruby example
+```
+./dragonruby mygame --eval app/tests.rb --no-tick
+```
 
-`samples/99_genre_arcade/pong`
+Note: test are using dr_spec see:
 
-# Why
-
-The purpose is to show on a simple example, Pong, how to organise code in
-Dragonruby.
-
-
-
-
-# Change log
-
-## Sun 2023-04-09
-
-implement performance improvement see
-
-https://discord.com/channels/608064116111966245/608064116984250379/1094016013634375740
-
-
-
-## Mon 03/04/2023
-
-Add first basical example
-
+https://github.com/levaleureux/dr_spec
