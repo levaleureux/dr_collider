@@ -1,0 +1,27 @@
+Log started at 2023/4/6 1:24:57
+This copy of the engine is git hash 302908cbc1edc80bcb5e45f1b7c52801e0ce5576, built on Mar 10 2023, at 22:19:01
+Platform: Linux
+
+*******************************************************************************************
+*** This is the Standard license build!                                                 ***
+*** Get more with an Indie or Pro license such as C extensions, mobile dev, and VR dev! ***
+*** Details at http://dragonruby.org/toolkit/game#purchase                              ***
+*******************************************************************************************
+
+
+
+***********************************************************************
+* Please note that this http server is only for simple local testing. *
+* You should use a real server like Apache or nginx for the public!   *
+***********************************************************************
+
+
+Now accepting connections on port 8080.
+Try pointing your browser at http://localhost:8080/
+
+127.0.0.1: 200 / (742 bytes) [directory listing]
+127.0.0.1: 404 /favicon.ico (18 bytes) [not found]
+127.0.0.1: 200 /lib (196 bytes) [directory listing]
+Signal 2 caught!
+Shutting down...
+Logging shutting down

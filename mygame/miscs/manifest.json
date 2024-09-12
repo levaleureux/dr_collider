@@ -1,0 +1,21 @@
+{
+	"dragonruby.png" : { "filesize" : 14417, "filetime" : 1680450279 },
+	"app/main.rb" : { "filesize" : 216, "filetime" : 1680450279 },
+	"app/original.rb" : { "filesize" : 4489, "filetime" : 1680450279 },
+	"app/component/game.rb" : { "filesize" : 1055, "filetime" : 1680450279 },
+	"app/component/calc.rb" : { "filesize" : 1911, "filetime" : 1680450279 },
+	"app/component/gui.rb" : { "filesize" : 325, "filetime" : 1680450279 },
+	"app/component/ball.rb" : { "filesize" : 923, "filetime" : 1680450279 },
+	"app/component/input.rb" : { "filesize" : 838, "filetime" : 1680450279 },
+	"open-source-licenses.txt" : { "filesize" : 31949, "filetime" : 1680450279 },
+	"metadata/DRAGONRUBY_PRODUCTION_BUILD" : { "filesize" : 0, "filetime" : 1680450279 },
+	"metadata/game_metadata.txt" : { "filesize" : 142, "filetime" : 1680450279 },
+	"metadata/icon.png" : { "filesize" : 157056, "filetime" : 1680450279 },
+	"font.ttf" : { "filesize" : 3146844, "filetime" : 1680450279 },
+	"README-my-first-game-what-a-name.txt" : { "filesize" : 70, "filetime" : 1680450279 },
+	"dragonruby-controller.png" : { "filesize" : 32688, "filetime" : 1680450279 },
+	"license-for-sample.txt" : { "filesize" : 1067, "filetime" : 1680450279 },
+	"sprites/icon.png" : { "filesize" : 7200, "filetime" : 1680450279 },
+	"console-logo.png" : { "filesize" : 25034, "filetime" : 1680450279 },
+	"" : {}
+}

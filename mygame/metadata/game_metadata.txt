@@ -1,0 +1,6 @@
+devid=valeureux
+devtitle=Valeureux
+gameid=dr_colider
+gametitle=dr_colider
+version=0.1
+icon=sprites/icon.png

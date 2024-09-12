@@ -1,0 +1,3 @@
+class MySprite < CSprite
+
+end
