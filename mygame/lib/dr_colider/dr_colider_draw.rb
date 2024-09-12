@@ -1,7 +1,8 @@
+#
+#
+#
 module DrColiderDraw
 
-  # TODO move to module
-  #
   def draw_rect x, y, w, h = 0
     h = w if h = 0
     a = [x , y]
@@ -15,11 +16,8 @@ module DrColiderDraw
   end
 
   def puts_map
-    # puts sprite.block_on_target_position
-    # map.map.tilesets.to_a.methods.sort.each do |met| puts met end
     map = @current_colider_map
     puts map.map.attributes
-    # puts map.layers.first.tile_at 0, 0
     puts map.tile_at 0, 0
     puts map.tile_at 1, 1
     puts map.width.to_s.blue
@@ -32,17 +30,26 @@ module DrColiderDraw
     end
   end
 
-  def draw_submap
-    x   = @c_sm_min_x
-    y   = @c_sm_min_y
+  ## TODO: must be call in a double loop
+  # offset as params
+  #
+  def draw_submap x_offset = 800, y_offset = 200
+    # x   = @c_sm_min_x
+    # y   = @c_sm_min_y
     map = @current_colider_map
-    map.draw_tile_at x.to_i,     y.to_i,     800,      200
-    map.draw_tile_at x.to_i + 1, y.to_i,     800 + 32, 200
-    map.draw_tile_at x.to_i,     y.to_i + 1, 800,      200 + 32
-    map.draw_tile_at x.to_i + 1, y.to_i + 1, 800 + 32, 200 + 32
+    # map.draw_tile_at x.to_i,     y.to_i,     x_offset,      y_offset
+    # map.draw_tile_at x.to_i + 1, y.to_i,     x_offset + 32, y_offset
+    # map.draw_tile_at x.to_i,     y.to_i + 1, x_offset,      y_offset + 32
+    # map.draw_tile_at x.to_i + 1, y.to_i + 1, x_offset + 32, y_offset + 32
+
+    submap_tiles.each_with_index do |row, i|
+      row.each_with_index do |tile, j|
+        map.draw_tile tile, x_offset + i * @tile_w, y_offset + @tile_h
+      end
+    end
   end
 
-  def render_debug data
+  def parse_map data
     (data[:start_x]..data[:end_x]).each do |i|
       (data[:start_y]..data[:end_y]).each do |j|
         yield(data, i, j)
@@ -53,7 +60,7 @@ module DrColiderDraw
   # show tile index as an overlay
   #
   def display_tiles data
-    render_debug data do |data, i, j|
+    parse_map data do |data, i, j|
       map  = data[:map]
       tile = map.layers.first.tile_at(i, j).id
       args.outputs.labels << {
@@ -72,7 +79,7 @@ module DrColiderDraw
   # show tile coordonate x,y as an overlay
   #
   def display_coordinates data
-    render_debug data do |data, i, j|
+    parse_map data do |data, i, j|
       map  = data[:map]
       args.outputs.labels << {
         text:     "#{i},#{j}",
@@ -98,8 +105,6 @@ module DrColiderDraw
              size_enum: 2)
   end
 
-  # replace 10 and 20 by map size
-  #
   def draw_debug_mode
     a = "start_x: #{@c_sm_min_x}, end_x: #{@c_sm_max_x}"
     label_data a, 5, 14

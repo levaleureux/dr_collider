@@ -25,6 +25,10 @@ module DrColider
     @tile_h   = @current_colider_map.tileheight.to_i
     @c_tile_w = @w / @tile_w # TODO 1 if 0
     @c_tile_h = @h / @tile_h
+    puts "tile_w______________________"
+    puts @tile_w.to_s
+    puts @w
+    puts "______________________"
   end
 
 end
