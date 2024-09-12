@@ -24,8 +24,8 @@ module DrColiderSubmap
   def submap_tiles
     result    = []
     start_row = @c_sm_min_x.floor
-    end_row   = @c_sm_min_y.floor
-    start_col = @c_sm_max_x.floor
+    end_row   = @c_sm_max_x.floor
+    start_col = @c_sm_min_y.floor
     end_col   = @c_sm_max_y.floor
     #
     # TODO: refactor using ruby inject

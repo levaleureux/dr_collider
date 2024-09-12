@@ -30,21 +30,19 @@ module DrColiderDraw
     end
   end
 
-  ## TODO: must be call in a double loop
-  # offset as params
+  # TODO: extract double each to a dr_matrix module
   #
   def draw_submap x_offset = 800, y_offset = 200
-    # x   = @c_sm_min_x
-    # y   = @c_sm_min_y
-    map = @current_colider_map
-    # map.draw_tile_at x.to_i,     y.to_i,     x_offset,      y_offset
-    # map.draw_tile_at x.to_i + 1, y.to_i,     x_offset + 32, y_offset
-    # map.draw_tile_at x.to_i,     y.to_i + 1, x_offset,      y_offset + 32
-    # map.draw_tile_at x.to_i + 1, y.to_i + 1, x_offset + 32, y_offset + 32
 
+    if args.inputs.keyboard.key_down.a
+      submap_tiles.each do |row|
+        puts row.map &:id
+      end
+    end
     submap_tiles.each_with_index do |row, i|
       row.each_with_index do |tile, j|
-        map.draw_tile tile, x_offset + i * @tile_w, y_offset + @tile_h
+        @current_colider_map.draw_tile tile,
+          x_offset + i * @tile_w, y_offset + j * @tile_h
       end
     end
   end
@@ -62,11 +60,13 @@ module DrColiderDraw
   def display_tiles data
     parse_map data do |data, i, j|
       map  = data[:map]
+      j = y_reverse j
       tile = map.layers.first.tile_at(i, j).id
+      j = y_reverse j
       args.outputs.labels << {
         text:     tile,
-        x:        i * 32 + 8 + data[:offset_x],
-        y:        y_reverse(j) * 32 + 32 + data[:offset_y],
+        x:        i * 32 + 8  + data[:offset_x],
+        y:        j * 32 + 32 - data[:offset_y],
         size_px:  14
       }
     end
@@ -81,11 +81,12 @@ module DrColiderDraw
   def display_coordinates data
     parse_map data do |data, i, j|
       map  = data[:map]
+      # j = y_reverse j
       args.outputs.labels << {
         text:     "#{i},#{j}",
         x:        i * 32 + 8 + data[:offset_x],
         # y:        y_reverse(j) * 32 + 16 + data[:offset_y],
-        y:        j * 32 + 16 + data[:offset_y],
+        y:        j * 32 + 16 - data[:offset_y],
         size_px:  12
       }
     end
@@ -109,6 +110,7 @@ module DrColiderDraw
     a = "start_x: #{@c_sm_min_x}, end_x: #{@c_sm_max_x}"
     label_data a, 5, 14
     b = "start_y: #{y_reverse @c_sm_min_y.to_i}, end_y: #{y_reverse @c_sm_max_y.to_i}"
+    b = "start_y: #{@c_sm_min_y.to_i}, end_y: #{@c_sm_max_y.to_i}"
     label_data b, 6, 14
     draw_debug_map \
       start_x:  0, end_x:    @current_colider_map.width - 1,
@@ -117,12 +119,13 @@ module DrColiderDraw
     #
     # TODO: extract method and add params
     start_x = @c_sm_min_x.to_i
-    start_y = y_reverse(@c_sm_min_y.to_i) - 1
+    start_y = @c_sm_min_y.to_i - 1
+    start_y = @c_sm_min_y.to_i
     end_y   = start_y + 1
     draw_debug_map \
-      start_x:  @c_sm_min_x.to_i,    end_x:    @c_sm_max_x.to_i,
-      start_y:  start_y,             end_y:    end_y,
-      offset_x: (25 - start_x) * 32, offset_y: (start_y -2) * 32 + 5
+      start_x:  @c_sm_min_x.to_i,         end_x:    @c_sm_max_x.to_i,
+      start_y:  start_y,                  end_y:    end_y,
+      offset_x: (25 - start_x) * @tile_w, offset_y: (start_y - 6) * @tile_h
 
   end
 end
