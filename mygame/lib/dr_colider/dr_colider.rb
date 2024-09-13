@@ -8,7 +8,8 @@ module DrColider
   attr_accessor :current_colider_map,
     :c_tile_w,   :c_tile_h,
     :c_sm_min_x, :c_sm_min_y,
-    :c_sm_max_x, :c_sm_max_y
+    :c_sm_max_x, :c_sm_max_y,
+    :c_new_x,    :c_new_y
 
   def colidable?
     true

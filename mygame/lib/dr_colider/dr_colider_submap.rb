@@ -10,6 +10,10 @@ module DrColiderSubmap
     @c_sm_min_y = @c_new_y / @tile_h
     @c_sm_max_x = @c_sm_min_x + @c_tile_w
     @c_sm_max_y = @c_sm_min_y + @c_tile_h
+    [
+      @c_sm_min_x, @c_sm_min_y,
+      @c_sm_max_x, @c_sm_max_y,
+    ]
   end
 
   # TODO: use named_params

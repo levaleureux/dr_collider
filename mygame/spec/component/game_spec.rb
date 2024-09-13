@@ -49,17 +49,20 @@ focus_spec '#dr_colider_init' do
     sprite = MySprite.new args
     sprite.x = 0
     sprite.y = 0
+    sprite.c_new_x = 0
+    sprite.c_new_y = 0
     map = Map.new args # , 0, 0, 100, 100
     map.init_map
     sprite.set_colision_map map
     sprite.dr_colider_init
 
-    expect(sprite.tile_w).to eq(32)
-    expect(sprite.tile_h).to eq(32)
+    expect(sprite.tile_w  ).to eq(32)
+    expect(sprite.tile_h  ).to eq(32)
     expect(sprite.c_tile_w).to eq(1)  # 32 / 16 = 2
     expect(sprite.c_tile_h).to eq(1) # 32 / 16 = 2
-    #
-    sprite.find_submap_points
+
+    puts "yo".blue
+    puts sprite.find_submap_points
     #
     expect(sprite.c_sm_min_x).to eq 0
     expect(sprite.c_sm_min_y).to eq 0
