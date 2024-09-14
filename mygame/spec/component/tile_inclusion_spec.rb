@@ -10,12 +10,13 @@ focus_spec :tile_inclusion do
   end
 
   it "can be used as a module in a parent class" do |args, assert|
-    sprite = MySprite.new args
+    sprite = MySpriteCenter.new args
     expect(sprite.colidable?).to be_truthy
   end
 
   # TODO move to before or test method
   #
+  # it "find the tile of a sprite center" do |args, assert|
   it "find the tile of a sprite center" do |args, assert|
     @sprite.x = @w
     @sprite.y = @w * 2
