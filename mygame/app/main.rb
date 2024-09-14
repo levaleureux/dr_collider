@@ -8,9 +8,11 @@ require "app/component/game.rb"
 #
 require "lib/dr_colider/dr_colider_draw.rb"
 require "lib/dr_colider/dr_colider_submap.rb"
+require "lib/dr_colider/dr_colider_center.rb"
 require "lib/dr_colider/dr_colider.rb"
 require "app/component/c_sprite.rb"
 require "app/component/my_sprite.rb"
+require "app/component/my_sprite_center.rb"
 
 require "app/scene.rb"
 

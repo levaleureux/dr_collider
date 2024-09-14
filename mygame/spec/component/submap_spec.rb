@@ -6,7 +6,6 @@ spec :colider_inculison do
 
   it "has a map" do |args, assert|
     sprite = MySprite.new args
-    w = 16
     map  = Map.new  args, 0 , 0 , 100, 100
     sprite.set_colision_map map
     # puts map.tiles
