@@ -38,9 +38,6 @@ focus_spec :one_point do
   end
 
   it "find tile id submap" do |args, assert|
-    puts "TODO submap_id".blue
-    puts @sprite.current_colider_map
-    # on empty area
     @sprite.x = @w
     @sprite.y = @w * 2
     expect(@sprite.submap_id).to eq([[0]])
@@ -51,8 +48,19 @@ focus_spec :one_point do
   end
 
   it "une routine de colision à des effet" do |args, assert|
-    # pour plus de testabilité
-    # c'est une fonction avec un context d'entrès et de sortie
-    # et il y aura un seteur de context
+    # la fonction prend le submap_id et le delta et autre context
+    @sprite.c_project_new_move_with \
+      x:  5,  y: 10,
+      dx: 7, dy: 20
+    @sprite.apply_colide
+    expect(@sprite.c_new_x).to eq 12
+    expect(@sprite.c_new_y).to eq 30
+    # si dans le vide
+    # expect a bougé
+    #
+    # si dans un mur pousser au bord du mur
+    # pour x
+    # pour y
+    #
   end
 end

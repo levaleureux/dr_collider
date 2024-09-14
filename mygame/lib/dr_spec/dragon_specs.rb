@@ -51,6 +51,7 @@ require 'lib/dr_spec/core/patch.rb'
 require "spec/component/submap_spec.rb"
 require "spec/component/map_spec.rb"
 require "spec/component/one_point_spec.rb"
+require "spec/component/collider_sprite_spec.rb"
 #
 # last spec must contain run_specs call
 #

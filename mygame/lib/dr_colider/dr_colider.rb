@@ -9,7 +9,8 @@ module DrColider
     :c_tile_w,   :c_tile_h,
     :c_sm_min_x, :c_sm_min_y,
     :c_sm_max_x, :c_sm_max_y,
-    :c_new_x,    :c_new_y
+    :c_new_x,    :c_new_y,
+    :c_dx,       :c_dy
 
   def colidable?
     true
@@ -28,6 +29,27 @@ module DrColider
     @c_tile_h = @h / @tile_h
   end
 
+  def c_set_position x = 0, y = 0
+    @x = x
+    @y = y
+  end
+
+  def c_set_delta dx = 0, dy = 0
+    @c_dx = dx
+    @c_dy = dy
+  end
+
+  def c_project_new_move
+    @c_new_x = @x + @c_dx
+    @c_new_y = @y + @c_dy
+  end
+
+  def c_project_new_move_with x: 0, y: 0, dx: 0, dy: 0
+    @x    = x;  @y    = y
+    @c_dx = dx; @c_dy = dy
+    c_project_new_move
+  end
+
   def colision_check
     a = "x #{@x} new_x: #{@c_new_x}"
     label_data a, 10, 14
@@ -40,23 +62,23 @@ module DrColider
       a = "x #{@x} new_x: #{@c_new_x} col yes"
       label_data a, 9, 14
       # if @c_new_x < @x
-        # @c_new_x = (@c_sm_min_x * @tile_w) + 1 #  (@x + 0)
+      # @c_new_x = (@c_sm_min_x * @tile_w) + 1 #  (@x + 0)
       # else
-        # @c_new_x = ((@c_sm_max_x -1) * @tile_w) - 1 #  (@x + 0)
-        # # @x = @c_new_x + 1
+      # @c_new_x = ((@c_sm_max_x -1) * @tile_w) - 1 #  (@x + 0)
+      # # @x = @c_new_x + 1
       # end
       # if @c_new_x < @x
-        # @c_new_x = ((@c_sm_min_x.floor + 1) * @tile_w) + 1 #  (@x + 0)
+      # @c_new_x = ((@c_sm_min_x.floor + 1) * @tile_w) + 1 #  (@x + 0)
       # else
-        # @c_new_x = ((@c_sm_max_x.floor - 1) * @tile_w) - 1 #  (@x + 0)
-        # # @x = @c_new_x + 1
+      # @c_new_x = ((@c_sm_max_x.floor - 1) * @tile_w) - 1 #  (@x + 0)
+      # # @x = @c_new_x + 1
       # end
       # # TODO understand why floor ?
       # if @c_new_y < @y
-        # @c_new_y = ((@c_sm_min_y.floor + 1) * @tile_h) #  (@y + 0)
+      # @c_new_y = ((@c_sm_min_y.floor + 1) * @tile_h) #  (@y + 0)
       # else
-        # @c_new_y = ((@c_sm_max_y.floor - 1) * @tile_h) - 1 #  (@y + 0)
-        # # @x = @c_new_x + 1
+      # @c_new_y = ((@c_sm_max_y.floor - 1) * @tile_h) - 1 #  (@y + 0)
+      # # @x = @c_new_x + 1
       # end
       @c_new_y =  @y + 0
       @c_new_x =  @x + 0
