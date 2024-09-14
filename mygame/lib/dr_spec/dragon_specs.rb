@@ -50,6 +50,7 @@ require 'lib/dr_spec/core/patch.rb'
 # require your spec here
 require "spec/component/submap_spec.rb"
 require "spec/component/tile_inclusion_spec.rb"
+require "spec/component/map_spec.rb"
 #
 # last spec must contain run_specs call
 #

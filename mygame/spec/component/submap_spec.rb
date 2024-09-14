@@ -57,12 +57,12 @@ spec '#dr_colider_init' do
     map.init_map
     sprite.set_colision_map map
     sprite.dr_colider_init
-
+    #
     expect(sprite.tile_w  ).to eq(32)
     expect(sprite.tile_h  ).to eq(32)
     expect(sprite.c_tile_w).to eq(1) # 32 / 16 = 2
     expect(sprite.c_tile_h).to eq(1) # 32 / 16 = 2
-
+    #
     puts sprite.find_submap_points
     #
     expect(sprite.c_sm_min_x).to eq 0
@@ -70,8 +70,6 @@ spec '#dr_colider_init' do
 
     expect(sprite.c_sm_max_x).to eq 1
     expect(sprite.c_sm_max_y).to eq 1
-
-    sprite.puts_map
   end
 
 end

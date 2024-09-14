@@ -1,4 +1,4 @@
-focus_spec :tile_inclusion do
+spec :tile_inclusion do
   #
   before do |args, assert|
     @sprite   = MySpriteCenter.new args
@@ -31,10 +31,10 @@ focus_spec :tile_inclusion do
     @sprite.y = 0
     expect(@sprite.c_center_x).to eq(16)
     expect(@sprite.c_center_y).to eq(16)
-    #
   end
 
   # it "find the tile of a sprite center" do |args, assert|
+  # end
   it "find the tile of a sprite corner (4 corners sprite)" do |args, assert|
     # todo il faudra faire des points intermediare
     # on set un sprite
