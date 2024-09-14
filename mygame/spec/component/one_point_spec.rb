@@ -1,4 +1,8 @@
-spec :tile_inclusion do
+#
+# If you want a very simple collider system
+# the module collider_one_point
+#
+focus_spec :one_point do
   #
   before do |args, assert|
     @sprite   = MySpriteCenter.new args
@@ -33,22 +37,17 @@ spec :tile_inclusion do
     expect(@sprite.c_center_y).to eq(16)
   end
 
-  # it "find the tile of a sprite center" do |args, assert|
-  # end
-  it "find the tile of a sprite corner (4 corners sprite)" do |args, assert|
-    # todo il faudra faire des points intermediare
-    # on set un sprite
-    # on choisi un corner
-    # on expect que x,y
-  end
-
-  it "on à une routine de colision pour un tile et un point et un context" do |args, assert|
-    # todo il faudra faire des points intermediare
-    # on set un sprite
-    # on a un corner tile
-    # et un delta
-    # et on on aurrai un context
-    # on à une selecteur de routine
+  it "find tile id submap" do |args, assert|
+    puts "TODO submap_id".blue
+    puts @sprite.current_colider_map
+    # on empty area
+    @sprite.x = @w
+    @sprite.y = @w * 2
+    expect(@sprite.submap_id).to eq([[0]])
+    # on colidable block
+    @sprite.x = 0
+    @sprite.y = 0
+    expect(@sprite.submap_id).to eq([[1]])
   end
 
   it "une routine de colision à des effet" do |args, assert|

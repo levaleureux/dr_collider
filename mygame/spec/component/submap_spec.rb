@@ -43,7 +43,7 @@ spec :colider_inculison do
   end
 end
 
-spec '#dr_colider_init' do
+focus_spec '#dr_colider_init' do
 
   # TODO with another sprite size
   #

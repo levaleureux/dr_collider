@@ -12,6 +12,15 @@ module DrColiderCenter
     @y + @tile_h.to_i / 2
   end
 
+  # TODO
+  #
+  def submap_id
+    [[
+      @current_colider_map
+      .tile_at(@x / @tile_w, @y / @tile_h).id
+    ]]
+  end
+
   private
 
 end
