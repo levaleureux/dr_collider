@@ -48,7 +48,8 @@ require "lib/dr_spec/tests_formater.rb"
 require 'lib/dr_spec/core/patch.rb'
 
 # require your spec here
-require "spec/component/game_spec.rb"
+require "spec/component/submap_spec.rb"
+require "spec/component/tile_inclusion_spec.rb"
 #
 # last spec must contain run_specs call
 #

@@ -44,7 +44,10 @@ spec :colider_inculison do
   end
 end
 
-focus_spec '#dr_colider_init' do
+spec '#dr_colider_init' do
+
+  # TODO with another sprite size
+  #
   it 'initializes tile dimensions correctly with defaults' do |args, assert|
     sprite = MySprite.new args
     sprite.x = 0
@@ -58,10 +61,9 @@ focus_spec '#dr_colider_init' do
 
     expect(sprite.tile_w  ).to eq(32)
     expect(sprite.tile_h  ).to eq(32)
-    expect(sprite.c_tile_w).to eq(1)  # 32 / 16 = 2
+    expect(sprite.c_tile_w).to eq(1) # 32 / 16 = 2
     expect(sprite.c_tile_h).to eq(1) # 32 / 16 = 2
 
-    puts "yo".blue
     puts sprite.find_submap_points
     #
     expect(sprite.c_sm_min_x).to eq 0
