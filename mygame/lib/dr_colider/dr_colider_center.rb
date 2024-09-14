@@ -5,9 +5,6 @@
 module DrColiderCenter
 
   def c_center_x
-    puts "ausitenarisetauriset______________e".blue
-    puts @tile_w.to_i
-    puts @x + @tile_w.to_i / 2
     @x + @tile_w.to_i / 2
   end
 

@@ -14,10 +14,11 @@ focus_spec :tile_inclusion do
     expect(sprite.colidable?).to be_truthy
   end
 
-  # TODO move to before or test method
+  # NOTE: On this type of colistion sprite size din't matter
+  # But it's better to provide a sprite:
+  # smaller or equal to the sprite of a tile
   #
-  # it "find the tile of a sprite center" do |args, assert|
-  it "find the tile of a sprite center" do |args, assert|
+  it "find a sprite center" do |args, assert|
     @sprite.x = @w
     @sprite.y = @w * 2
     #
@@ -33,6 +34,7 @@ focus_spec :tile_inclusion do
     #
   end
 
+  # it "find the tile of a sprite center" do |args, assert|
   it "find the tile of a sprite corner (4 corners sprite)" do |args, assert|
     # todo il faudra faire des points intermediare
     # on set un sprite
