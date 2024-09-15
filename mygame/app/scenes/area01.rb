@@ -6,7 +6,7 @@ class Area01Scene < Scene
 
   def initialize args
     self.args = args
-    @sprite   = MySprite.new args
+    @sprite   = MySpriteCenter.new args
     @map      = Map.new args
     @sprite.set_colision_map @map
     @sprite.dr_colider_init

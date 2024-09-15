@@ -51,38 +51,20 @@ module DrColider
   end
 
   def colision_check
-    a = "x #{@x} new_x: #{@c_new_x}"
-    label_data a, 10, 14
-    if no_colision?
-      @x = @c_new_x
-      @y = @c_new_y
-      a = "x #{@x} new_x: #{@c_new_x} col no"
-      label_data a, 9, 14
-    else
-      a = "x #{@x} new_x: #{@c_new_x} col yes"
-      label_data a, 9, 14
-      # if @c_new_x < @x
-      # @c_new_x = (@c_sm_min_x * @tile_w) + 1 #  (@x + 0)
-      # else
-      # @c_new_x = ((@c_sm_max_x -1) * @tile_w) - 1 #  (@x + 0)
-      # # @x = @c_new_x + 1
-      # end
-      # if @c_new_x < @x
-      # @c_new_x = ((@c_sm_min_x.floor + 1) * @tile_w) + 1 #  (@x + 0)
-      # else
-      # @c_new_x = ((@c_sm_max_x.floor - 1) * @tile_w) - 1 #  (@x + 0)
-      # # @x = @c_new_x + 1
-      # end
-      # # TODO understand why floor ?
-      # if @c_new_y < @y
-      # @c_new_y = ((@c_sm_min_y.floor + 1) * @tile_h) #  (@y + 0)
-      # else
-      # @c_new_y = ((@c_sm_max_y.floor - 1) * @tile_h) - 1 #  (@y + 0)
-      # # @x = @c_new_x + 1
-      # end
-      @c_new_y =  @y + 0
-      @c_new_x =  @x + 0
-    end
+    # a = "x #{@x} new_x: #{@c_new_x}"
+    # label_data a, 10, 14
+    # if no_colision?
+      # @x = @c_new_x
+      # @y = @c_new_y
+      # a = "x #{@x} new_x: #{@c_new_x} col no"
+      # label_data a, 9, 14
+    # else
+      # a = "x #{@x} new_x: #{@c_new_x} col yes"
+      # label_data a, 9, 14
+      # @c_new_y =  @y + 0
+      # @c_new_x =  @x + 0
+    # end
+    apply_colide
   end
 
   def no_colision?

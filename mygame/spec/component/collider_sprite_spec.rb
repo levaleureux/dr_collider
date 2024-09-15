@@ -5,7 +5,6 @@ focus_spec :c_sprite do
   end
 
   it "set_position" do |args, assert|
-    puts @sprite.class.to_s.blue
     @sprite.c_set_position
     expect(@sprite.x).to eq 0
     expect(@sprite.y).to eq(0)

@@ -111,8 +111,9 @@ class Map
   end
 
   def tile_at(i, j)
-    # NOTE why - 1 ?
-    j = 10 - 1 - j
+    # NOTE - 1 beause array start by 0
+    # so may is array.length - 1
+    j = 10 - 1 - j.to_i
     map.layers.first.tile_at(i, j)
   end
 
