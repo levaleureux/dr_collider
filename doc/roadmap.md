@@ -1,11 +1,12 @@
-# dr_colider
+# Roadmap for dr_collider
 
-minimaliste and modular 2D colision lib for dragon ruby
+1. 4 points colision sprite
+1. slop block
+1. more examples
+1. 2 blocks size sprite colision
+1. n*m blocks size sprite colision
+1. moving platform
+1. providing serie of links and inspiration
+1. tutorial on various channel
 
-# how to install and use it
 
-# Example
-
-# Road map
-
-# Culture and people
