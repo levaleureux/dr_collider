@@ -53,6 +53,8 @@ TODO:
 
 # Road map
 
+see https://github.com/levaleureux/dr_collider/blob/master/doc/roadmap.md
+
 # Culture and people
 
 # Contribution
