@@ -1,13 +1,15 @@
 # Specs de DrColiderCenter : centre de la boite, tuile occupee, resolution de
 # collision « au centre » (un seul point teste : le centre de la cible).
 #
-# Sert aussi de gabarit pour les autres modules : doublures via `let`,
-# hote pret a l'emploi via build_collider_host.
+# Mise en place via `let` granulaires (tile, blocks, w, h, map, host).
 
 spec :dr_colider_center do
-  # Carte 3x3 en tuiles de 32 px ; un seul bloc plein en (1,1).
-  let(:map)  { FakeMap.new(tilewidth: 32, tileheight: 32, tiles: { [1, 1] => 1 }) }
-  let(:host) { build_collider_host(map: map, w: 32, h: 32) }
+  let(:tile)   { 32 }
+  let(:blocks) { { [1, 1] => 1 } }     # un seul bloc plein en (1,1)
+  let(:w)      { 32 }
+  let(:h)      { 32 }
+  let(:map)    { FakeMap.new(tilewidth: tile, tileheight: tile, tiles: blocks) }
+  let(:host)   { build_collider_host(map: map, w: w, h: h) }
 
   context "centre de la boite" do
     specify "le centre vaut le coin + une demi-tuile" do

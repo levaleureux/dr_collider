@@ -2,13 +2,18 @@
 # positionnement, projection du deplacement et detection d'absence de
 # collision sur la submap.
 #
-# Memes conventions que dr_colider_center_spec : doublures via `let`, hote
-# pret a l'emploi via build_collider_host.
+# Mise en place entierement decrite par des `let` granulaires (tile, blocks,
+# w, h, map, host). Les contextes imbriques SURCHARGENT ces `let` (boite large,
+# boite minuscule, carte avec bloc) : le `let(:host)` se reconstruit alors
+# automatiquement a partir des valeurs surchargees.
 
 spec :dr_colider_core do
-  # Carte 3x3 en tuiles de 32 px, vide par defaut.
-  let(:map)  { FakeMap.new(tilewidth: 32, tileheight: 32) }
-  let(:host) { build_collider_host(map: map, w: 32, h: 32) }
+  let(:tile)   { 32 }
+  let(:blocks) { {} }                  # carte vide par defaut
+  let(:w)      { 32 }
+  let(:h)      { 32 }
+  let(:map)    { FakeMap.new(tilewidth: tile, tileheight: tile, tiles: blocks) }
+  let(:host)   { build_collider_host(map: map, w: w, h: h) }
 
   context "colidable?" do
     specify "un hote muni du mixin est colidable" do
@@ -23,19 +28,21 @@ spec :dr_colider_core do
       expect(host.c_tile_h).to eq 1
     end
 
-    specify "une boite non carree couvre le nombre de tuiles attendu" do
-      wide = build_collider_host(map: map, w: 64, h: 32)
-      # largeur : 64 / 32 = 2 tuiles ; hauteur : 32 / 32 = 1 tuile
-      expect(wide.c_tile_w).to eq 2
-      expect(wide.c_tile_h).to eq 1
+    context "boite non carree (large)" do
+      let(:w) { 64 }                   # surcharge : 64 / 32 = 2 tuiles
+      specify "couvre deux tuiles en largeur, une en hauteur" do
+        expect(host.c_tile_w).to eq 2
+        expect(host.c_tile_h).to eq 1
+      end
     end
 
-    specify "une boite plus petite qu'une tuile couvre au moins une tuile" do
-      # boite 16x16 dans des tuiles de 32 : 16 / 32 < 1 ; sans garde, la
-      # submap serait vide et aucune collision ne pourrait etre detectee.
-      tiny = build_collider_host(map: map, w: 16, h: 16)
-      expect(tiny.c_tile_w).to be_greater_than_or_equal_to 1
-      expect(tiny.c_tile_h).to be_greater_than_or_equal_to 1
+    context "boite plus petite qu'une tuile" do
+      let(:w) { 16 }                   # surcharge : 16 / 32 < 1
+      let(:h) { 16 }
+      specify "couvre au moins une tuile (garde anti-zero, #5)" do
+        expect(host.c_tile_w).to be_greater_than_or_equal_to 1
+        expect(host.c_tile_h).to be_greater_than_or_equal_to 1
+      end
     end
   end
 
@@ -68,31 +75,28 @@ spec :dr_colider_core do
   end
 
   context "no_colision?" do
-    # find_submap_points calcule les bornes @c_sm_min/max lues par no_colision?
-    # via submap_tiles ; il faut donc projeter, puis appeler find_submap_points,
-    # avant d'interroger no_colision?.
+    # Depuis le correctif #3, no_colision? amorce elle-meme ses bornes
+    # (find_submap_points) : plus aucun pre-appel n'est requis.
 
     specify "sur une carte vide, aucune collision n'est detectee" do
       host.c_project_new_move_with(x: 0, y: 0, dx: 0, dy: 0)
-      host.find_submap_points
       expect(host.no_colision?).to eq true
-    end
-
-    specify "un bloc plein dans la submap signale une collision" do
-      blocked_map = FakeMap.new(tilewidth: 32, tileheight: 32, tiles: { [1, 1] => 1 })
-      blocked     = build_collider_host(map: blocked_map, w: 32, h: 32)
-      # cible la tuile (1,1) : 32 / 32 = 1 en x comme en y
-      blocked.c_project_new_move_with(x: 32, y: 32, dx: 0, dy: 0)
-      blocked.find_submap_points
-      expect(blocked.no_colision?).to eq false
     end
 
     specify "amorce elle-meme les bornes, sans pre-appel a find_submap_points" do
-      # On projette la position, puis on interroge DIRECTEMENT no_colision?
-      # sans appeler find_submap_points : la methode doit amorcer ses propres
-      # bornes @c_sm_* (sinon submap_tiles lit nil -> nil.floor leve).
+      # On interroge DIRECTEMENT no_colision? apres projection : la methode
+      # doit poser ses propres bornes @c_sm_* (sinon submap_tiles lit nil).
       host.c_project_new_move_with(x: 0, y: 0, dx: 0, dy: 0)
       expect(host.no_colision?).to eq true
+    end
+
+    context "un bloc plein dans la submap" do
+      let(:blocks) { { [1, 1] => 1 } }   # surcharge : bloc plein en (1,1)
+      specify "signale une collision" do
+        # cible la tuile (1,1) : 32 / 32 = 1 en x comme en y
+        host.c_project_new_move_with(x: 32, y: 32, dx: 0, dy: 0)
+        expect(host.no_colision?).to eq false
+      end
     end
   end
 end
