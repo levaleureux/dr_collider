@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Vérifie le seuil minimal de couverture à partir de mygame/coverage/coverage.json,
+# généré par un run dr_spec préalable (app/tests.rb appelle DrSpec::Coverage).
+#
+# Usage : bin/coverage_check   (après bin/dr_spec_quiet)
+# Seuil : variable COVERAGE_MIN (défaut 90).
+# Portée : la couverture ne suit que la LOGIQUE (center, submap, core) ; le
+#          module de rendu DrColiderDraw est chargé hors instrumentation.
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+THRESHOLD="${COVERAGE_MIN:-90}"
+REPORT="mygame/coverage/coverage.json"
+
+if [ ! -f "$REPORT" ]; then
+  echo "coverage_check: $REPORT manquant (lancez bin/dr_spec_quiet d'abord)" >&2
+  exit 1
+fi
+
+THRESHOLD="$THRESHOLD" REPORT="$REPORT" ruby -e '
+  require "json"
+  pct = JSON.parse(File.read(ENV["REPORT"]))["total"]["percentage"]
+  min = Integer(ENV["THRESHOLD"])
+  printf("coverage: %.1f%% (seuil min %d%%)\n", pct, min)
+  exit(pct >= min ? 0 : 1)
+'

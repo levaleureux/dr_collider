@@ -1,0 +1,20 @@
+# Lefthook config for dr_colider
+# https://github.com/evilmartians/lefthook
+#
+# Les wrappers bin/*_quiet produisent une sortie condensée (économie de tokens).
+# dr_spec nécessite le binaire DragonRuby ; le projet vit dans mygame/.
+
+output:
+  - meta
+  - summary
+  - failure
+
+pre-commit:
+  parallel: true
+  commands:
+    rubocop:
+      run: bin/rubocop_quiet
+    reek:
+      run: bin/reek_quiet
+    dr_spec:
+      run: bin/dr_spec_quiet && bin/coverage_check
