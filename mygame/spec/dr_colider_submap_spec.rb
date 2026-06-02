@@ -47,6 +47,15 @@ spec :dr_colider_submap do
       host.c_project_new_move_with(x: 0, y: 0, dx: 0, dy: 0)
       expect(host.find_submap_points).to eq [0, 0, 1, 1]
     end
+
+    specify "renvoie des bornes entieres (Integer)" do
+      # La division entiere mRuby (Integer / Integer) peut produire un Float.
+      # On normalise a la source : les quatre bornes doivent etre des Integer.
+      host.c_project_new_move_with(x: 32, y: 64, dx: 0, dy: 0)
+      host.find_submap_points.each do |borne|
+        expect(borne).to be_instance_of Integer
+      end
+    end
   end
 
   context "submap_tiles : extraction de la grille de tuiles" do
