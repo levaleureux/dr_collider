@@ -86,5 +86,13 @@ spec :dr_colider_core do
       blocked.find_submap_points
       expect(blocked.no_colision?).to eq false
     end
+
+    specify "amorce elle-meme les bornes, sans pre-appel a find_submap_points" do
+      # On projette la position, puis on interroge DIRECTEMENT no_colision?
+      # sans appeler find_submap_points : la methode doit amorcer ses propres
+      # bornes @c_sm_* (sinon submap_tiles lit nil -> nil.floor leve).
+      host.c_project_new_move_with(x: 0, y: 0, dx: 0, dy: 0)
+      expect(host.no_colision?).to eq true
+    end
   end
 end
