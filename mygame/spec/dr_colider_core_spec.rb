@@ -29,6 +29,14 @@ spec :dr_colider_core do
       expect(wide.c_tile_w).to eq 2
       expect(wide.c_tile_h).to eq 1
     end
+
+    specify "une boite plus petite qu'une tuile couvre au moins une tuile" do
+      # boite 16x16 dans des tuiles de 32 : 16 / 32 < 1 ; sans garde, la
+      # submap serait vide et aucune collision ne pourrait etre detectee.
+      tiny = build_collider_host(map: map, w: 16, h: 16)
+      expect(tiny.c_tile_w).to be_greater_than_or_equal_to 1
+      expect(tiny.c_tile_h).to be_greater_than_or_equal_to 1
+    end
   end
 
   context "c_set_position" do

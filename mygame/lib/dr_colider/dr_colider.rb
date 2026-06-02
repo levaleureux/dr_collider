@@ -25,8 +25,10 @@ module DrColider
   def dr_colider_init
     @tile_w   = @current_colider_map.tilewidth.to_i
     @tile_h   = @current_colider_map.tileheight.to_i
-    @c_tile_w = @w / @tile_w # TODO 1 if 0
-    @c_tile_h = @h / @tile_h
+    # Au moins une tuile, meme si la boite est plus petite qu'une tuile
+    # (sinon submap vide -> collision jamais detectee). Cf. issue #5.
+    @c_tile_w = [@w / @tile_w, 1].max
+    @c_tile_h = [@h / @tile_h, 1].max
   end
 
   def c_set_position x = 0, y = 0
