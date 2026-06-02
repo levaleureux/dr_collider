@@ -1,0 +1,12 @@
+.DS_Store
+test-failures.txt
+
+# Rapports de couverture dr_spec (generes a chaque run)
+mygame/coverage/
+
+# Sources instrumentees temporaires (couverture)
+mygame/tmp/
+
+# Builds DragonRuby
+builds/*
+logs/*

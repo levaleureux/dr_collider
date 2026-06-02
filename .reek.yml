@@ -1,0 +1,28 @@
+---
+# Reek configuration for dr_colider
+
+detectors:
+  IrresponsibleModule:
+    enabled: false
+  TooManyMethods:
+    enabled: false
+  # attr_accessor est un motif standard DragonRuby pour les mixins.
+  Attribute:
+    enabled: false
+  TooManyInstanceVariables:
+    max_instance_variables: 12
+
+directories:
+  "mygame/spec":
+    UtilityFunction:
+      enabled: false
+    NestedIterators:
+      enabled: false
+  # Les mixins de collision s'appuient sur les ivars de la classe hôte.
+  "mygame/lib/dr_colider":
+    InstanceVariableAssumption:
+      enabled: false
+
+exclude_paths:
+  - mygame/lib/dr_spec
+  - mygame/spec/component

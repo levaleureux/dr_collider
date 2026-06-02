@@ -1,0 +1,37 @@
+inherit_from:
+  - .rubocop_todo.yml
+  - .enabled.yml
+  - .disabled.yml
+
+# Périmètre : notre bibliothèque de logique (lib/dr_colider) + le code de test
+# que nous maintenons. Le framework vendorisé (lib/dr_spec), le jeu de
+# démonstration historique (app/ hors tests.rb) et les specs orphelines
+# (spec/component) sont hors champ.
+AllCops:
+  TargetRubyVersion: 2.6
+  DisabledByDefault: true
+  Include:
+    - 'mygame/lib/dr_colider/**/*.rb'
+    - 'mygame/spec/dr_colider_*_spec.rb'
+    - 'mygame/spec/support/**/*.rb'
+    - 'mygame/app/tests.rb'
+  Exclude:
+    - 'mygame/lib/dr_spec/**/*'
+    - 'mygame/spec/component/**/*'
+
+# Les doublures de test (constructeurs riches en options) sont legitimement
+# exemptees des metriques de complexite reservees au code de production.
+# inherit_mode/merge : cumuler avec les Exclude du .rubocop_todo.yml (dette
+# legacy grandfatherisee) au lieu de les ecraser.
+Metrics/MethodLength:
+  inherit_mode:
+    merge:
+      - Exclude
+  Exclude:
+    - 'mygame/spec/**/*'
+Metrics/ParameterLists:
+  inherit_mode:
+    merge:
+      - Exclude
+  Exclude:
+    - 'mygame/spec/**/*'

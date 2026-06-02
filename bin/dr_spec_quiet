@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Wrapper quiet pour dr_spec via DragonRuby.
+# Le projet DragonRuby est le sous-dossier mygame/.
+#
+# Succès: "dr_spec: N test(s) passed"
+# Échec:  "dr_spec: N test(s) failed, M passed\n  🔴 ..."
+
+require "open3"
+
+DR_BIN  = ENV["DRAGONRUBY_BIN"] ||
+          File.expand_path("../../../dragonruby-macos/dragonruby", __dir__)
+PROJECT = File.expand_path("../mygame", __dir__)
+
+cmd = [
+  DR_BIN, PROJECT,
+  "--eval", "app/tests.rb",
+  "--no-tick",
+  "--exit-on-fail",
+  "--quiet"
+]
+
+stdout, stderr, _status = Open3.capture3(*cmd)
+output = stdout + stderr
+
+if (m = output.match(/dr_spec: (\d+) test\(s\) passed\b(?! ,)/))
+  puts "dr_spec: #{m[1]} test(s) passed"
+  exit 0
+end
+
+if (m = output.match(/dr_spec: (\d+) test\(s\) failed, (\d+) passed/))
+  puts "dr_spec: #{m[1]} test(s) failed, #{m[2]} passed"
+  output.scan(/🔴 (.+)/).each { |match| puts "  #{match[0]}" }
+  exit 1
+end
+
+puts "dr_spec: unexpected output (possible crash)"
+output.lines.select { |l| l.match?(/EXCEPTION|ERROR|Error/) }.each { |l| puts "  #{l.strip}" }
+exit 1
