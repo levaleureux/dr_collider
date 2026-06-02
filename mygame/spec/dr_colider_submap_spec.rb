@@ -7,17 +7,19 @@
 #   - submap_tiles : relit ces bornes pour en extraire la grille de tuiles.
 # submap_tiles depend donc de l'appel prealable de find_submap_points.
 #
-# Gabarit calque sur dr_colider_center_spec : doublures via `let`, hote pret
-# a l'emploi via build_collider_host.
+# Mise en place via `let` granulaires (tile, blocks, w, h, map, host).
 
 spec :dr_colider_submap do
-  # Carte 4x4 en tuiles de 32 px, avec deux blocs pleins places explicitement
-  # en coordonnees tuiles (tx, ty) : (1,2) et (2,3). Toute autre case vaut 0.
+  let(:tile)   { 32 }
+  # Deux blocs pleins en coordonnees tuiles (tx, ty) : (1,2) et (2,3).
+  let(:blocks) { { [1, 2] => 1, [2, 3] => 1 } }
+  let(:w)      { 32 }
+  let(:h)      { 32 }
   let(:map) do
-    FakeMap.new(tilewidth: 32, tileheight: 32, width: 4, height: 4,
-                tiles: { [1, 2] => 1, [2, 3] => 1 })
+    FakeMap.new(tilewidth: tile, tileheight: tile, width: 4, height: 4,
+                tiles: blocks)
   end
-  let(:host) { build_collider_host(map: map, w: 32, h: 32) }
+  let(:host) { build_collider_host(map: map, w: w, h: h) }
 
   context "find_submap_points : bornes de la sous-carte" do
     specify "renvoie [min_x, min_y, max_x, max_y] en coordonnees tuiles" do
@@ -65,14 +67,13 @@ spec :dr_colider_submap do
       host.c_project_new_move_with(x: 32, y: 64, dx: 0, dy: 0)
       host.find_submap_points
       grille = host.submap_tiles
-      expect(grille.length).to eq 2          # deux lignes (rows)
-      expect(grille.first.length).to eq 2    # deux colonnes (cols)
+      expect(grille.length).to eq 2          # deux lignes (x)
+      expect(grille.first.length).to eq 2    # deux colonnes (y)
     end
 
     specify "recupere les bons id aux bonnes positions de la sous-carte" do
-      # Sous-carte (1,2)..(2,3). submap_tiles indexe tile_at(row, col) avec
-      # row dans min_x..max_x et col dans min_y..max_y.
-      # Donc les cases visitees (row, col) sont :
+      # Sous-carte (1,2)..(2,3). submap_tiles indexe tile_at(x, y) avec
+      # x dans min_x..max_x et y dans min_y..max_y. Cases visitees (x, y) :
       #   (1,2) (1,3)
       #   (2,2) (2,3)
       # Les blocs pleins poses sont en (1,2) et (2,3) -> coins opposes.
