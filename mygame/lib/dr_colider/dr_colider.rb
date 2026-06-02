@@ -70,9 +70,8 @@ module DrColider
   end
 
   def no_colision?
-    a = submap_tiles.each {|row| row.map! &:id}.flatten
-    label_data a, 11, 14
-    true
-    a.all? 0
+    find_submap_points
+    ids = submap_tiles.flatten.map &:id
+    ids.all? { |id| id == 0 }
   end
 end
