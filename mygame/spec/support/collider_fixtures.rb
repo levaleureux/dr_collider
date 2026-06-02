@@ -36,10 +36,42 @@ class FakeMap
   end
 end
 
+# Collecteur de lignes : doublure de args.outputs.lines. Capture chaque ligne
+# poussee par draw_rect pour pouvoir l'inspecter dans les specs.
+class FakeLines
+  attr_reader :lines
+
+  def initialize
+    @lines = []
+  end
+
+  def << line
+    @lines << line
+  end
+end
+
+# Doublure de args.outputs (expose .lines).
+class FakeOutputs
+  attr_reader :lines
+
+  def initialize
+    @lines = FakeLines.new
+  end
+end
+
+# Doublure de args (expose .outputs).
+class FakeArgs
+  attr_reader :outputs
+
+  def initialize
+    @outputs = FakeOutputs.new
+  end
+end
+
 # Hote minimal : un objet qui inclut les mixins de collision et expose les
-# attributs qu'ils manipulent (@x, @y, @w, @h, @tile_w, @tile_h). Les methodes
-# de dessin (label_data, draw_rect) sont neutralisees : on teste la logique,
-# pas le rendu.
+# attributs qu'ils manipulent (@x, @y, @w, @h, @tile_w, @tile_h). label_data
+# reste neutralise (rendu pur), mais args est une doublure capturante pour
+# que draw_rect soit testable.
 class ColliderHost
   include DrColider          # tire aussi DrColiderDraw + DrColiderSubmap
   include DrColiderCenter
@@ -53,10 +85,14 @@ class ColliderHost
     @y = 0
   end
 
-  # Neutralise le couplage au rendu (DrColiderDraw).
+  # Neutralise le seul couplage au rendu non teste (labels). draw_rect, lui,
+  # ecrit dans args.outputs.lines : on garde la vraie methode et on fournit
+  # une doublure d'args capturante.
   def label_data(*); end
-  def draw_rect(*);  end
-  def args; nil; end
+
+  def args
+    @args ||= FakeArgs.new
+  end
 end
 
 # Fabrique un hote pret a l'emploi, carte branchee et dr_colider_init lance.
