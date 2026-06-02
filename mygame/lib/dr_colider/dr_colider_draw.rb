@@ -4,15 +4,11 @@
 module DrColiderDraw
 
   def draw_rect x, y, w, h = 0
-    h = w if h = 0
-    a = [x , y]
-    b = [x + w, y]
-    a = [x , y]
-    b = [x + w, y]
-    args.outputs.lines << [a[0], a[1],     b[0], b[1]    ]
-    args.outputs.lines << [a[0], a[1],     a[0], a[1] + w]
-    args.outputs.lines << [a[0], a[1] + w, b[0], b[1] + w]
-    args.outputs.lines << [b[0], b[1],     b[0], b[1] + w]
+    h = w if h == 0
+    args.outputs.lines << [x,     y,     x + w, y    ]
+    args.outputs.lines << [x,     y,     x,     y + h]
+    args.outputs.lines << [x,     y + h, x + w, y + h]
+    args.outputs.lines << [x + w, y,     x + w, y + h]
   end
 
   def puts_map

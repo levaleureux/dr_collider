@@ -27,5 +27,6 @@ require "spec/dr_colider_center_spec.rb"
 require "spec/dr_colider_core_spec.rb"
 require "spec/dr_colider_submap_spec.rb"
 require "spec/dr_colider_draw_spec.rb"
+require "spec/dr_colider_draw_rect_spec.rb"
 
 run_specs
