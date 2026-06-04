@@ -23,6 +23,9 @@ require "lib/dr_colider/dr_colider.rb"
 
 require "spec/support/collider_fixtures.rb"
 
+# NB : require_specs (#50) ne fonctionne pas en layout mygame/ — il fait
+# `$gtk.exec("ls spec")` dans le cwd du process (racine du depot), alors que
+# les specs sont sous mygame/spec. On garde donc les require explicites.
 require "spec/dr_colider_center_spec.rb"
 require "spec/dr_colider_core_spec.rb"
 require "spec/dr_colider_submap_spec.rb"
