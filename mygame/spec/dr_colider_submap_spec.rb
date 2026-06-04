@@ -55,7 +55,7 @@ spec :dr_colider_submap do
       # On normalise a la source : les quatre bornes doivent etre des Integer.
       host.c_project_new_move_with(x: 32, y: 64, dx: 0, dy: 0)
       host.find_submap_points.each do |borne|
-        expect(borne).to be_instance_of Integer
+        expect(borne).to be_a Integer   # be_a : alias de be_kind_of (#49)
       end
     end
   end
