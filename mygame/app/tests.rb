@@ -23,13 +23,9 @@ require "lib/dr_colider/dr_colider.rb"
 
 require "spec/support/collider_fixtures.rb"
 
-# NB : require_specs (#50) ne fonctionne pas en layout mygame/ — il fait
-# `$gtk.exec("ls spec")` dans le cwd du process (racine du depot), alors que
-# les specs sont sous mygame/spec. On garde donc les require explicites.
-require "spec/dr_colider_center_spec.rb"
-require "spec/dr_colider_core_spec.rb"
-require "spec/dr_colider_submap_spec.rb"
-require "spec/dr_colider_draw_spec.rb"
-require "spec/dr_colider_draw_rect_spec.rb"
+# Auto-chargement des specs via require_specs (#50, fix cwd #122) : charge
+# tous les spec/**/*_spec.rb. Les fixtures (sans suffixe _spec) sont chargees
+# explicitement ci-dessus, AVANT les specs qui en dependent.
+require_specs
 
 run_specs
